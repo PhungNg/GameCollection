@@ -6,7 +6,7 @@ html, body {
 
 body {
 	color: aliceblue;
-	background-color: #222;
+	background-color: #111;
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
@@ -65,11 +65,45 @@ button:not(:disabled):active {
 button:focus {
 	border-color: #666;
 }
-h1{
+h1, h2, h3, h4, h5{
 	margin: 0;
+	cursor: default;
 }
 
 .centered{
-	width: 80vw;
+	width: 95vw;
 	margin: auto;
+}
+.slider{
+	overflow: scroll;
+	display: flex;
+}
+
+.grid{
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+	gap: 1rem;
+}
+
+.bottomBorder{
+	border-bottom: 1px solid #444;
+}
+
+.pointer{
+	cursor: pointer;
+}
+.flex{
+	display: flex;
+}
+
+.textShadow{
+	text-shadow: 1px 1px 2px rgb(11, 17, 109);
+}
+.boxShadow{
+	box-shadow: 2px 2px 10px black
+}
+.plusIcon{
+	margin-right: .5rem;
+	pointer-events: none;
+
 }

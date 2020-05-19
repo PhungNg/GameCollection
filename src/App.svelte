@@ -1,126 +1,85 @@
 <script>
 	import { onMount } from 'svelte'
-	import Article from './component/Article.svelte'
-	import Header from './component/Header.svelte'
-	import Footer from './component/Footer.svelte'
-	import Banner from './component/Banner.svelte'
-	import Genres from './component/Genres.svelte'
+	import Games from './components/Games.svelte'
+	import Header from './components/Header.svelte'
+	import Banner from './components/Banner.svelte'
+	import Browse from './components/Browse.svelte'
+	import Results from './components/Results.svelte'
+	import GameArticle from './components/GameArticle.svelte'
+	import { loaded } from './stores/stores.js'
+	import { createEventDispatcher } from 'svelte'
+	import { getData, getDate } from './utils.js'
+	import {fade, fly} from 'svelte/transition'
+	/* 
 
-	let param
-	let listOfGames = []
-	let gameId;
-	let gameGenre;
-	let genreId;
-	let platformID;
-	let gameTags;
+		Ting å fikse: 
+		- Firebase db
+		- log in og bruker funksjoner
+		- Filtreringen av spill kan klikke hvis man trykker for fort
+		- bugs når man kommer inn på siden. Må refreshe for at det skal funke igjen
+		- filtermenu design
+		- kunne trykke på tags og platform når man hovrer over et spill
+		- search bug. Må søke to ganger første gang man søker for å få opp riktig resultat.
+		- video controller 
+		- layout på mobil
+		- img i gamearticle - mobil 
+		- infinit scroll på suggested games i gamearticle 
+		
+		
+	*/ 
+	let page = 'home'
+	let loading = true
+	let openGameInfo = false
 	let newReleases = []
-	let listOfGenres = []
-	let listOfPsGames = []
+	let trendingGames = []
+	let data = []
+	let scrollPos = 0
 
-	const url = `https://rawg-video-games-database.p.rapidapi.com/`
-	let date = new Date()
-
-	const getDate = (num) => {
-		let previousDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - num).toJSON().slice(0,10)
-		return previousDate
+	/* Tar imot data fra all dispatches og sender de videre */
+	const route = (e) => {
+		if(e.detail.route != page) $loaded = false
+		page = e.detail.route
+		data = e.detail.data
 	}
-
+	/* Henter data for banner */
 	const getNewReleases = async() => {
-		const query = `games?page_size=6&dates=${getDate(90)},${getDate(0)}`
-		newReleases = await getData(query)
+		const query = `games?ordering=rating,added&page_size=10&dates=${getDate(0)},${getDate(-365)}`
+		newReleases = await getData(query).then(e=>e.results)
 	}
-	const getGenres = async() => {
-		const query = `genres`
-		listOfGenres = await getData(query)
+	/* Henter data for grid */
+	const getTrending = async() => {
+		const query = `games?page_size=20&ordering=rating,added&dates=${getDate(180)},${getDate(-180)}`
+		trendingGames = await getData(query)
 	}
-	const getPsGames = async() => {
-		const query = `games?page_size=10&parent_platforms=2`
-		listOfPsGames = await getData(query)
-		console.log(listOfPsGames)
-	}
-	const getData = async(query) => {
-		let res = await fetch(url+query, {
-			"method": "GET",
-			"headers": {
-				"x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
-				"x-rapidapi-key": "685908fbf0msh9d953169c3a8c84p100cddjsne623eb4f7700"
-			}
-		})
-		.then(response => response.json())
-		.then(json => {
-			return json.results
-		})
-		.catch(err =>console.log(err))
-
-		return res
-	}
-
 	onMount(() => {
 		getNewReleases()
-		getGenres()
-		getPsGames()
+		getTrending()
 	})
-
 </script>
-
-<Header />
-{#if newReleases}
-	<Banner newReleases={newReleases}/>
-{:else}
-	<h1>Loadinfg</h1>
-{/if}
-
-<main>
-	<h1>Genres</h1>
-	<div class="genres">
-		<Genres genres={listOfGenres} />
-	</div>
-	<div class="playstation">
-		<div class="mask">
-			<div class="centered">
-			<h1>Playstation</h1>
-			</div>
-			<div class="centered title">
-				<Article games={listOfPsGames}/>
-			</div>
-		</div>
-	</div>
-	<div class="">
-	</div>
-</main>
-<Footer />
-
+<Header on:route={route} />
+<div style="margin-top:2.7rem">
+	{#if page == 'loading'}
+		<h1>loading</h1>
+	{/if}
+	{#if page == 'home'}
+			<Banner on:route={route} newReleases={newReleases}/>
+		{#if $loaded}
+			<main class="centered">
+				<h1>New and trending games</h1>
+				<Results on:route={route} results={trendingGames} />
+			</main>
+		{/if}
+	{/if}
+	{#if page == 'gameArticle'}
+		<GameArticle gameInfo={data} on:route={route}/>
+	{/if}
+	{#if page == 'browse'}
+		<Browse on:route={route} results={data} />
+	{/if}
+</div>
 <style>
-	.title{
-		overflow: scroll;
-		display: flex
-	}
-	div{
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))
-	}
-	main{
-		height: 100vh;
-		width: 80vw;
-		margin: auto
-	}
-	.genres{
-		overflow: scroll;
-		display: flex;
-	}
-	.playstation{
-		background-image: url(https://media.playstation.com/is/image/SCEA/flow?$native_xxl_nt$);
-		background-size: cover;
-		background-position: center;
-		width: 100vw;
-		position: absolute;
-		left: 0;
-	}
-	.mask{
-		background-image: linear-gradient(#222, rgba(0, 123, 223, 0.151), #222);
-		height: 100%;
-	}
-	h1{
-		padding-top: 1rem
-	}
+h1{
+	padding: 1rem;
+	padding-left: 0
+}
 </style>

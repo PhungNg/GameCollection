@@ -3,14 +3,13 @@ import 'firebase/firestore'
 import 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB2iGj7ogGu6kcfpPEcPbKc_WnEOyZlM_w",
-  authDomain: "ultimatestickmanchampionship.firebaseapp.com",
-  databaseURL: "https://ultimatestickmanchampionship.firebaseio.com",
-  projectId: "ultimatestickmanchampionship",
-  storageBucket: "ultimatestickmanchampionship.appspot.com",
-  messagingSenderId: "552560255858",
-  appId: "1:552560255858:web:0f1d04faf4730a9ebd33eb",
-  measurementId: "G-RSMGRRZGYV"
+  apiKey: "AIzaSyDveJd9lqWXgmgUCtok_pF0M8lwcrrp-aA",
+  authDomain: "gamecollection-2950f.firebaseapp.com",
+  databaseURL: "https://gamecollection-2950f.firebaseio.com",
+  projectId: "gamecollection-2950f",
+  storageBucket: "gamecollection-2950f.appspot.com",
+  messagingSenderId: "64549305771",
+  appId: "1:64549305771:web:de77eb7e489b04d72866ee"
 };
 firebase.initializeApp(firebaseConfig);
 
