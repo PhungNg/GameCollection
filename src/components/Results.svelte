@@ -46,7 +46,7 @@
         loading = nextPage.next ? 
             setTimeout(function(){
                 loading = false
-            }, 2000)
+            }, 1000)
             : false
     }
  

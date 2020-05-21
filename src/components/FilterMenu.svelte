@@ -114,7 +114,7 @@
 <div class="tab"><!-- 3.tab -->
     <h2>Platforms</h2>
     {#each platforms as platform}
-        {#if inList(platform.name)}
+        {#if inList(platform.name, platform.id)}
             <div 
                 class="tabItem"
                 on:click={(e)=>filter(e,{platform: platform.id, date:''})} >

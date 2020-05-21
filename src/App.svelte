@@ -22,9 +22,6 @@
 		- search bug. Må søke to ganger første gang man søker for å få opp riktig resultat.
 		- video controller 
 		- layout på mobil
-		- img i gamearticle - mobil 
-		- infinit scroll på suggested games i gamearticle 
-		
 		
 	*/ 
 	let page = 'home'
@@ -81,5 +78,8 @@
 h1{
 	padding: 1rem;
 	padding-left: 0
+}
+main{
+	padding-bottom: 15rem
 }
 </style>

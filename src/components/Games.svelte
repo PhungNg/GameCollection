@@ -4,7 +4,6 @@
     import { getData, inList, getIcon } from '../utils.js'
     import Fa from 'svelte-fa'
     export let games
-
     const dispatch = createEventDispatcher()
 
     /* Åpner spill article */
@@ -43,7 +42,7 @@
                         <p>Platforms</p>
                         <div class="flex right">
                             {#each game.parent_platforms as platform}
-                                {#if inList(platform.platform.name)}<!-- Sjekker om jeg vil ha platformen -->
+                                {#if inList(platform.platform.name, platform.platform.id)}<!-- Sjekker om jeg vil ha platformen -->
                                     <div class="icons pointer"
                                         on:click={()=>
                                         getGames('platforms', platform.platform.id)}>

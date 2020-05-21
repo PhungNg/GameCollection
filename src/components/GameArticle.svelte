@@ -35,7 +35,8 @@
         getSuggested()
     })
     const getSuggested = async() => {
-        suggestedGames = await getData(`games/${gameInfo.id}/suggested`).then(e=>e.results)
+        suggestedGames = await getData(`games/${gameInfo.id}/suggested`)
+        console.log(suggestedGames)
     }
     
     const dateToString = (date) => {
@@ -107,11 +108,11 @@
             </div>
         </div>
     </div>
-    {#if suggestedGames}
+    {#if suggestedGames != 0}
         <div>
             <h3>Suggested games</h3>
             <div class="grid">
-                <Games on:route games={suggestedGames} />
+                <Results results={suggestedGames} />
             </div>
         </div>
     {/if}
@@ -160,7 +161,7 @@
         background-image: radial-gradient(rgba(71, 71, 71, 0.45), #111 70%)
     }
     main{
-        padding-bottom: 25rem;
+        padding-bottom: 15rem;
     }
     
     .titleContainer{

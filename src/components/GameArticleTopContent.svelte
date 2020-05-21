@@ -5,6 +5,7 @@
 
     export let gameInfo
     let screenshots = []
+    let clip = []
     let duration
     let time = 0
     let volume = 0
@@ -13,10 +14,19 @@
     let showControlsTimeout
     let showImg = false
     let imgSrc
-    $: if(gameInfo.id){
+    $: if(gameInfo.id){/* Kjøres hvis nytt spill har blitt klikket på */
         showImg = false
-        getScreenshots()/* Kjøres hvis gameinfo.id endres */
+        getScreenshots()
     }
+    $: if(gameInfo.clip){/* Kjøres hvis nytt spill har blitt klikket på */
+        clip = {
+            clipPre: gameInfo.clip.preview,
+            clipFull: gameInfo.clip.clips.full
+        }
+        }else{
+            clip = []
+        }
+
     /* Spørr etter screenshots */
     const getScreenshots = async() => {
         screenshots = await getData(`games/${gameInfo.id}/screenshots`).then(e=>e.results)
@@ -43,14 +53,16 @@
             in:fly="{{x:-700,delay:300, duration:1200}}"
             out:fade
             class="gameClip" 
-            src="{gameInfo.clip.clips.full}"
+            src="{clip.clipFull}"
             on:mouseover={handlemouseover}
             on:mouseleave={handlemouseleave}
             bind:volume
             bind:paused>
         </video>
     {:else if showImg == true}<!-- Bilder som klikkes på fra galleriet -->
-        <div transition:fade style="background-image:url({imgSrc})" class="gameClip"/>
+        <div class="gameClip">
+            <img src={imgSrc} alt="galleryImg">
+        </div>
     {:else}<!-- Hvis video ikke finnes -->
         <div transition:fade style="background-image:url({gameInfo.background_image})" class="gameClip"/>
     {/if}
@@ -59,7 +71,7 @@
         out:fade
         class="gallery">
         {#if screenshots}
-            <Gallery getSrc={getSrc} screenshots={screenshots}/><!-- Gallery component -->
+            <Gallery clip={clip} getSrc={getSrc} screenshots={screenshots}/><!-- Gallery component -->
         {:else}
             <h1>Loading</h1>
         {/if}
@@ -80,13 +92,18 @@
             padding: .5rem 0;
         }
     }
-
+    img{
+        width: 100%;
+        align-self: center
+    }
     .gameClip{
         width: 100%;
         border-radius: 5px;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center;
+        display: grid;
+        background-color: black;
     }
     .gallery{
         border-radius: 5px;

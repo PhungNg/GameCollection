@@ -1,7 +1,7 @@
 <script>
     export let stores
 </script>
-
+<!-- img skal byttes ut med iconer fra font-awsome -->
 <div class="container">
    {#each stores as store}<!-- Henter alle stores --> 
         <a href={store.url} target="_blank">
