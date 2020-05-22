@@ -1,8 +1,11 @@
 <script>
-    import { createEventDispatcher } from 'svelte';
+    import Fa from 'svelte-fa'
+    import { createEventDispatcher } from 'svelte'
     import {fly, fade, slide} from 'svelte/transition'
     import { getData, inList, getIcon } from '../utils.js'
-    import Fa from 'svelte-fa'
+    import GameDetailsonHover from './GameDetailsonHover.svelte'
+    import { faHeart } from '@fortawesome/free-solid-svg-icons'
+    import { faHeart as farFaHeart} from '@fortawesome/free-regular-svg-icons'
     export let games
     const dispatch = createEventDispatcher()
 
@@ -33,41 +36,15 @@
             out:fade
             on:click={(e)=>openGame(e,game.id)} 
             style="background-image:url({game.image_background || game.background_image})">
+            <div class="wishlistIcon">
+                <Fa icon={farFaHeart} />
+            </div>
             <div class="detailsBox">
                 <div>
                     <h1>{game.name}</h1>
                 </div>
-                <div class="details"><!-- Infoboks ved hover av article --> 
-                    <div class="column">
-                        <p>Platforms</p>
-                        <div class="flex right">
-                            {#each game.parent_platforms as platform}
-                                {#if inList(platform.platform.name, platform.platform.id)}<!-- Sjekker om jeg vil ha platformen -->
-                                    <div class="icons pointer"
-                                        on:click={()=>
-                                        getGames('platforms', platform.platform.id)}>
-                                        <Fa icon={getIcon(platform.platform.name)}  />
-                                    </div>
-                                {/if}
-                            {/each}
-                        </div>
-                    </div>
-                    <div class="column">
-                        <p>Genres:</p>
-                        <div class="right">
-                            {#each game.genres as genre}<!-- Henter sjangere -->
-                                <p on:click={()=>
-                                    getGames('genres', genre.id)} 
-                                    class="genreName pointer">
-                                    {genre.name}
-                                </p>
-                            {/each}
-                        </div>
-                    </div>
-                    <div class="column">
-                        <p>Release date:</p>
-                        <p class="right">{game.released}</p>
-                    </div>
+                <div class="details">
+                    <GameDetailsonHover game={game}/>
                 </div>
             </div>
         </article>
@@ -77,27 +54,6 @@
 {/each}
 
 <style>
-    .right{
-        justify-self: end;
-        align-self: center;
-        color: #eee
-    }   
-    .column{
-        color: #999;
-        display: grid;
-        grid-template-columns: 2fr 3fr;
-        border-bottom: 1px solid #999
-    }
-    .column:last-of-type{
-        border-bottom: none
-    }
-    .icons{
-        margin-left: .5rem;
-    }
-    .icons:hover{
-        color: #777;
-        transform: scale(1.2)
-    }
     article{
         background-repeat: no-repeat;
         background-position: center;
@@ -115,6 +71,11 @@
     article:hover .detailsBox{
         max-height: 100%;
     }
+    .wishlistIcon{
+        position: relative;
+        top: 10%;
+        left: 90%;
+    }
     .detailsBox{
         background-color: rgba(31, 31, 31, 0.908);
         align-self: end;
@@ -124,9 +85,6 @@
         max-height: 30px;
         transition: 1s;
     }
-    .column p{
-        font-size: .8rem
-    }
     h1{
         text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
         cursor: pointer;
@@ -134,16 +92,6 @@
     }
     h2{
         margin: auto
-    }
-    .genreName{
-        text-decoration: underline;
-        display: inline-block;
-        text-align: end;
-        margin: .2rem    
-    }
-    .genreName:hover{
-        color: #777;
-        transform: scale(1.1)
     }
     .details{
         display: none;

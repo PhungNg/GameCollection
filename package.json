@@ -19,7 +19,9 @@
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
     "@fortawesome/free-regular-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
-    "firebase": "^7.14.1",
+    "firebase": "^7.14.5",
+    "rxfire": "^3.12.5",
+    "rxjs": "^6.5.5",
     "sirv-cli": "^0.4.4",
     "svelte-fa": "^2.1.1"
   }

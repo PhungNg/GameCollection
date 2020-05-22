@@ -20,13 +20,13 @@
     <div>
         <h5>Platforms</h5>
         {#each gameInfo.platforms as platform}
-            <p on:click={()=>getGames('platforms', platform.platform.id, platform.platform.name)}>{platform.platform.name}, </p>
+            <p class="several" on:click={()=>getGames('platforms', platform.platform.id, platform.platform.name)}>{platform.platform.name}</p>
         {/each}
     </div>
     <div>
         <h5>Genre</h5>
         {#each gameInfo.genres as genre}
-            <p on:click={()=>getGames('genres', genre.id, genre.name)}>{genre.name}, </p>
+            <p class="several" on:click={()=>getGames('genres', genre.id, genre.name)}>{genre.name}</p>
         {/each}
     </div>
     <div>
@@ -60,13 +60,13 @@
     <div>
         <h5>Developer</h5>
         {#each gameInfo.developers as developer}
-            <p on:click={()=>getGames('developers', developer.id, developer.name)}>{developer.name}, </p>
+            <p class="several" on:click={()=>getGames('developers', developer.id, developer.name)}>{developer.name}</p>
         {/each}
     </div>
     <div>
         <h5>Publisher</h5>
         {#each gameInfo.publishers as publisher}
-            <p on:click={()=>getGames('publisher', publisher.id, publisher.name)}>{publisher.name},</p>
+            <p class="several" on:click={()=>getGames('publisher', publisher.id, publisher.name)}>{publisher.name}</p>
         {:else}
             <p>No publishers</p>
         {/each}
@@ -80,7 +80,7 @@
     <div>
         <h5>Tags</h5>
         {#each gameInfo.tags as tag}
-            <p on:click={()=>getGames('tags', tag.slug, tag.name)}>{tag.name}, </p>
+            <p class="several" on:click={()=>getGames('tags', tag.slug, tag.name)}>{tag.name}</p>
         {/each}
     </div>
 </div>

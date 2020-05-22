@@ -112,7 +112,7 @@
         <div>
             <h3>Suggested games</h3>
             <div class="grid">
-                <Results results={suggestedGames} />
+                <Results on:route results={suggestedGames} />
             </div>
         </div>
     {/if}

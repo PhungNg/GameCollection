@@ -45,5 +45,10 @@
         margin: 0;
         margin-right: .5rem;
         outline: none;
+        align-self: center
+    }
+    form{
+        display: grid;
+        align-items: center
     }
 </style>

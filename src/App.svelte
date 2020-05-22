@@ -9,7 +9,14 @@
 	import { loaded } from './stores/stores.js'
 	import { createEventDispatcher } from 'svelte'
 	import { getData, getDate } from './utils.js'
-	import {fade, fly} from 'svelte/transition'
+	import { fade, fly } from 'svelte/transition'
+
+
+	/* 
+	users.doc('id').set({
+		navn: 'phung'
+	}) */
+
 	/* 
 
 		Ting å fikse: 
@@ -22,6 +29,7 @@
 		- search bug. Må søke to ganger første gang man søker for å få opp riktig resultat.
 		- video controller 
 		- layout på mobil
+		- hamburger meny i header, browser
 		
 	*/ 
 	let page = 'home'
