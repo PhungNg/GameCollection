@@ -6,12 +6,8 @@
     export let gameInfo
     let screenshots = []
     let clip = []
-    let duration
-    let time = 0
-    let volume = 0
+    let volume = 1
     let paused = true
-    let showControls = true
-    let showControlsTimeout
     let showImg = false
     let imgSrc
     $: if(gameInfo.id){/* Kjøres hvis nytt spill har blitt klikket på */
@@ -43,8 +39,8 @@
     }
 
     /* Henter bilde src for banner */
-    const getSrc = (src) => {
-        showImg = true
+    const getSrc = (src, show) => {
+        showImg = show
         imgSrc = src
     }
 </script>
@@ -78,20 +74,6 @@
     </div>
 
 <style>
-    @media (min-width: 1060px){
-       
-        .gallery{
-            display: grid;
-            gap: 10px;
-        }
-
-    }
-    @media (max-width: 1060px){
-        .gallery{
-            display:flex;
-            padding: .5rem 0;
-        }
-    }
     img{
         width: 100%;
         align-self: center
@@ -109,4 +91,21 @@
         border-radius: 5px;
         overflow: scroll;
     }
+    .gallery::-webkit-scrollbar{
+        display: none
+    }
+    @media (min-width: 1060px){
+       
+        .gallery{
+            display: grid;
+            gap: 10px;
+        }
+    }
+    @media (max-width: 1060px){
+        .gallery{
+            display:flex;
+            padding: .5rem 0;
+        }
+    }
+    
 </style>

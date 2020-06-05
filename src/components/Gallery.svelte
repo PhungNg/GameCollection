@@ -8,7 +8,7 @@
 {#if clip != 0}
     <img 
         src={clip.clipPre} 
-        on:click={(e)=>getSrc(clip.clipFull)}
+        on:click={()=>getSrc(clip.clipFull, false)}
         alt="preview of clip">
 {/if}
 <!-- Går gjennom alle screenshots og legger til click event -->
@@ -16,7 +16,7 @@
         <img 
             class="pointer" 
             transition:fade 
-            on:click={(e)=>getSrc(e.target.src)} 
+            on:click={(e)=>getSrc(e.target.src, true)} 
             src={screenshot.image} 
             alt="screenshot">
 {:else}
@@ -24,14 +24,14 @@
 {/each}
 
 <style>
+    img{
+        width: 100%;
+        border-radius: 10px;
+    }
     @media(max-width: 1060px){
         img{
             max-height: 70px;
             margin-right: .5rem
         }
-    }
-    img{
-        width: 100%;
-        border-radius: 10px;
     }
 </style>

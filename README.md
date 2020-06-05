@@ -7,3 +7,5 @@ Webapplikasjon som viser samling av spill
 - naviger til GameCollection mappen i terminalen
 - kjør 'npm install'
 - kjør 'npm run dev'
+
+or visit (http://gamecollection.surge.sh/ "Game Collection")

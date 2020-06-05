@@ -25,7 +25,6 @@
                     <div on:click={e=>showHideText(e)} class="reguireBox pointer">
                         <div class="plusIcon textShadow">
                                 <Fa icon={faPlusSquare} size="1.2x"/>
-                                <!-- <Fa icon={faMinusSquare} size="1.2x"/> -->
                         </div>
                         <div class="textShadow">
                             {@html requirement.requirements.minimum}
@@ -48,12 +47,12 @@
 </div>
 
 <style>
-.reguireBox{
-    height: 30px;
-    display: flex;
-    overflow: hidden;
-}
-.showFullBox{
-    height: 100%;
-}
+    .reguireBox{
+        height: 30px;
+        display: flex;
+        overflow: hidden;
+    }
+    .showFullBox{
+        height: 100%;
+    }
 </style>

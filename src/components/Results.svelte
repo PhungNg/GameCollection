@@ -15,11 +15,13 @@
     $: if(nextPage)nextPageQuery = nextPage.next ? nextPage.next.split('api/')[1] : moreGames = false
     let count = 0
     
-    window.onscroll = () => {/* ! flytt denne til utils ! */
+    /* ! flytt denne til utils.js ! */
+    window.onscroll = () => {
         const header = document.querySelector("header");
         /* Viser meny hvis man er helt oppe */
         if(scrollY == 0)header.classList.add('toggleHeader')
         /* Toggler av og på header */
+
         /* ! Skift ut remove/add med toggle() ! */
 		if(scrollY > count + 200){
 			count = scrollY
@@ -39,6 +41,7 @@
             loadMore()
         }
     }
+
     /* Henter neste page */
     const loadMore = async() => {
         nextPage = await getData(nextPageQuery)
@@ -57,7 +60,7 @@
     </div>
     {#if loading}
         <div class="box">
-            <h1 style="text-align: center">Loading...</h1><!-- må lavere -->
+            <h1 style="text-align: center">Loading...</h1>
         </div>
     {/if}
     {#if !moreGames}

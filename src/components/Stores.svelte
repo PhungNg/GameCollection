@@ -1,5 +1,8 @@
 <script>
     export let stores
+    import Fa from 'svelte-fa'
+    import { faGamepad } from '@fortawesome/free-solid-svg-icons'
+    import { faPlaystation, faXbox, faApple, faSteam, faItchIo, faGooglePlay } from '@fortawesome/free-brands-svg-icons'
 </script>
 <!-- img skal byttes ut med iconer fra font-awsome -->
 <div class="container">
@@ -8,21 +11,21 @@
             <div class="storeBox">
                 <p>{store.store.name}</p>
                 {#if store.store.id == 1}<!-- plukker kun ut enkelte stores -->
-                    <img src='icons/steam-black.png' alt="icon">
+                    <Fa icon={faSteam} size='1.2x'/>
                 {:else if store.store.id == 2 || store.store.id == 7}
-                    <img src='icons/xbox-black.png' alt="icon">
+                    <Fa icon={faXbox} size='1.2x'/>
                 {:else if store.store.id == 3}
-                    <img src='icons/ps-black.png' alt="icon">
+                    <Fa icon={faPlaystation} size='1.2x'/>
                 {:else if store.store.id == 4}
-                    <img src='icons/apple-black.png' alt="icon">
+                    <Fa icon={faApple} size='1.2x'/>
                 {:else if store.store.id == 5}
                     <img src='icons/gog-black.png' alt="icon">
                 {:else if store.store.id == 6}
-                    <img src='icons/nintendo-black.png' alt="icon">
+                    <Fa icon={faGamepad} size='1.2x'/>
                 {:else if store.store.id == 8}
-                    <img src='icons/google-black.png' alt="icon">
+                    <Fa icon={faGooglePlay} size='1.2x'/>    
                 {:else if store.store.id == 9}
-                    <img src='icons/itch-black.png' alt="icon">
+                    <Fa icon={faItchIo} size='1.2x'/>
                 {:else}
                     <img src='icons/epicGames-black.png' alt="icon">
                 {/if}
@@ -34,7 +37,7 @@
 <style>
     .container{
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
         align-items: start;
         gap: .5rem;
         margin: 1rem 0
@@ -46,15 +49,14 @@
         color: black;
         border-radius: 8px;
         align-items: center;
-        padding: 0.3rem .5rem;
         margin-right: .5rem;
-        /* min-width */
     }
     p{
-        font-size: 15px
+        font-size: 15px;
+        margin-right: 5px;
     }
     img{
-        height: 30px;
-        width: 30px;
+        height: 25px;
+        width: 25px;
     }
 </style>

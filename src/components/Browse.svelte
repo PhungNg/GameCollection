@@ -13,12 +13,16 @@
     let date = `dates=${getDate(180)},${getDate(-180)}`
     let platform = ''
     let genre = ''
-
+    let ready = false
+    let url = `games?${order}${date}`
     $: url = `games?${order}${platform}${genre}${date}`
-    $: {if(url)search()} /* kjører søk hvergang url endres */
-
+    $: if(url && ready)search()
+    
     const search = async() => {
         results = await getData(url)
+    }
+    if(results == undefined){
+        search()
     }
     const resetQuery = () =>{
         order = ''
@@ -33,12 +37,13 @@
         order = query.ordering ? `ordering=${query.ordering}&` : order
         platform = query.platform ? `parent_platforms=${query.platform}&` : platform
         date = query.date ? `dates=${query.date}` : date
+        ready = true
     }
     const current = (e) => {
-        $currentSearch = e.srcElement.children[1].innerHTML /* Hvis hva man søker på */
+        $currentSearch = e.srcElement.children[1].innerHTML /* Viser hva man søker på */
     }
     const filter = (e, query, bool) => {
-        /* reset() */
+        reset()
         checkQuery(query, bool)
         showFilter()
         current(e)
@@ -51,8 +56,10 @@
     const showFilter = () => {
         const filterBar = document.querySelector(".filterBar");
         const filterMenu = document.querySelector(".filterMenu");
+        const filterButton = document.querySelector(".filterButton");
         filterBar.classList.toggle('toggle')
         filterMenu.classList.toggle('toggle') 
+        filterButton.classList.toggle('toggle') 
     }
 </script>
 
@@ -61,10 +68,10 @@
         Filter
     </h1>
     
-    <div transition:fly="{{x:-200, delay:500, duration:1000}}" class="button" on:click={showFilter}>
+    <div transition:fly="{{x:-200, delay:500, duration:1000}}" class="filterButton" on:click|stopPropagation={showFilter}>
         <Fa icon={faFilter} size="1.2x"/>
     </div><!-- Vis/skjul menu i mobil -->
-
+    
     <div class="filterBar toggle" transition:fly="{{y:-300, duration: 1000}}" >
         <h1>{$currentSearch}</h1>
         <div class="flex"><!-- Select bokser -->
@@ -97,12 +104,35 @@
     </div>
     <div transition:fly="{{y:2000, duration:1000}}" class="resultList">
         {#if results}
-            <Results on:route results={results}/> <!--  -->
+            <Results on:route results={results}/>
         {/if}
     </div>
 </main>
 
 <style>
+    .filterMenu{
+        padding-bottom: .7rem;
+    }
+    p{
+        margin:0
+    }
+    @media(min-width: 1060px){
+        main{
+            display: grid;
+            grid-template-columns: 1fr 6fr;
+            gap: 1rem;
+            padding-top: 2rem
+        }
+        .flex{
+            margin-top: 1rem;
+        }
+        .filterButton{
+            display: none
+        }
+    }
+    .filterMenuTitle{
+        align-self: end;
+    }
     @media(max-width: 1060px){
         main{
             grid-template-columns: 1fr
@@ -110,52 +140,33 @@
         .toggle{
             display: none
         }
-        .button{
+        .filterButton{
             position: fixed;
             background-color: #333;
             padding: .5rem 1rem;
+            margin-top: 1px;
             opacity: .9;
+            z-index: 10;
             border-top-right-radius: 5px;
             border-bottom-right-radius: 5px;
         }
         .filterMenu, .filterBar{
             position: fixed;
-        }
-        .filterBar{
+            z-index: 10;
+            margin-top: 1px;
             background-color: black;
         }
         .filterMenu{
             top: 8rem;
-            background-color: black;
             overflow: scroll;
             max-height: 80%;
             width: 243px;
         }
+        .filterMenu::-webkit-scrollbar{
+            display: none
+        }
         .filterMenuTitle{
             display: none
         }
-        .button:hover{
-            opacity: 1;
-            z-index: 10;
-        }
-    }
-    @media(min-width: 1060px){
-        main{
-            display: grid;
-            grid-template-columns: 1fr 6fr;
-            gap: 1rem
-        }
-        .button{
-            display: none
-        }
-    }
-    .filterMenuTitle{
-        align-self: end;
-    }
-    .filterMenu{
-        padding-bottom: .7rem;
-    }
-    p{
-        margin:0
     }
 </style>

@@ -67,7 +67,8 @@
     const route = (array) => {
         dispatch('route',{
             route: 'gameArticle',
-            data: array
+            data: array,
+            gamesData: newReleases[val]
         })
     }
     
@@ -116,7 +117,7 @@
     }
     .content{
         padding: .7rem;
-        padding-left: 3rem;
+        padding-left: 2.45rem;
         width: 20vw;
         overflow-wrap: break-word;
         display: grid;
@@ -129,7 +130,7 @@
     }
     .content:hover{
         background-color:  rgba(0, 0, 0, 0.8);
-        padding-left: 4rem
+        padding-left: 6rem
     }
     .descriptionText{
         font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -167,7 +168,5 @@
         background-repeat: no-repeat;
         background-position: center;
         display: grid
-    }
-    .btnContainer{               
     }
 </style>

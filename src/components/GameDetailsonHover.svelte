@@ -1,13 +1,22 @@
 <script>
     import { getData, inList, getIcon } from '../utils.js'
+    import { createEventDispatcher } from 'svelte';
+    import { currentSearch } from '../stores/stores.js'
+
     import Fa from 'svelte-fa'
     export let game
-    const getGames = async(param, slug) => {
+    const dispatch = createEventDispatcher()
+    let games = []
+
+    const getGames = async(param, slug, search) => {
+        $currentSearch = search
         games = await getData(`games?${param}=${slug}`)
+
         dispatch('route', {
             route: 'browse',
             data: games
         })
+        scroll(0,0)
     }
 </script>
     <div class="column">
@@ -16,9 +25,9 @@
             {#each game.parent_platforms as platform}
                 {#if inList(platform.platform.name, platform.platform.id)}<!-- Sjekker om jeg vil ha platformen -->
                     <div class="icons pointer"
-                        on:click={()=>
-                        getGames('platforms', platform.platform.id)}>
-                        <Fa icon={getIcon(platform.platform.name)}  />
+                        on:click|stopPropagation={()=>
+                        getGames('parent_platforms', platform.platform.id, platform.platform.name)}>
+                        <Fa icon={getIcon(platform.platform.name)} />
                     </div>
                 {/if}
             {/each}
@@ -28,8 +37,8 @@
         <p>Genres:</p>
         <div class="right">
             {#each game.genres as genre}<!-- Henter sjangere -->
-                <p on:click={()=>
-                    getGames('genres', genre.id)} 
+                <p on:click|stopPropagation={()=>
+                    getGames('genres', genre.slug, genre.name)} 
                     class="genreName pointer">
                     {genre.name}
                 </p>

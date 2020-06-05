@@ -172,4 +172,8 @@
         background-position: top;
         pointer-events: none
     }
+    .tabItem:hover .tabIcon{
+        background-color: #eee;
+        color: #333
+    }
 </style>

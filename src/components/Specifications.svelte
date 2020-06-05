@@ -86,12 +86,6 @@
 </div>
 
 <style>
-@media(max-width: 1060){
-    .specification{
-        grid-template-columns: none;
-        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    }
-}
     .specification{
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
@@ -124,5 +118,11 @@
     .noStyle{
         text-decoration: none;
         cursor: default
+    }
+    @media(max-width: 500px){
+        .specification{
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        }
+    
     }
 </style>

@@ -23,32 +23,32 @@
         dispatch('close')
     }
 </script> 
-<form on:submit|preventDefault={getGames}>
+<form class="centered" on:submit|preventDefault={getGames}>
     <input 
-        transition:fly="{{y: -200, duration: 500}}" 
+        transition:fade
         type="search" 
         bind:value={searchFieldValue} 
         placeholder="Search for games..."
         name="q"
         incremental 
         on:focusout={closeSearch}
-        autofocus>
+        required>
 </form>
 
 <style>
-@media(max-width: 1060px){
-    input{
-        width: 97%
-    }
-}
     input{
         margin: 0;
-        margin-right: .5rem;
         outline: none;
-        align-self: center
     }
+    
     form{
         display: grid;
-        align-items: center
+        align-items: center;
+        margin-top: .5rem;
+    }
+    @media(max-width: 1060px){
+        input{
+            width: 97%
+        }
     }
 </style>
