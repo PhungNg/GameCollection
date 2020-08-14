@@ -49,7 +49,7 @@
 </script>
 <header class="toggleHeader">
     <div class="centered flex">
-        <img class="logo pointer" on:click={()=>route('home')} src="https://scontent.fosl4-2.fna.fbcdn.net/v/t1.15752-9/83159897_257926908623638_7548701435592966144_n.png?_nc_cat=101&_nc_sid=b96e70&_nc_ohc=5K9aCZMnrW4AX8B4NXD&_nc_ht=scontent.fosl4-2.fna&oh=508b2dc573ac8d600c49f02c117c3508&oe=5EFC61D4" alt="">
+        <img class="logo pointer" on:click={()=>route('home')} src="https://scontent.fosl4-2.fna.fbcdn.net/v/t1.15752-9/83159897_257926908623638_7548701435592966144_n.png?_nc_cat=101&_nc_sid=b96e70&_nc_ohc=kKA9fjyx-YwAX_KCY7X&_nc_ht=scontent.fosl4-2.fna&oh=ed5ec27e67c2c0814c6aafdfb72b0eb7&oe=5F5B4DD4" alt="logo">
         <p on:click={()=>route('browse')}>Browse</p> 
         <p style="pointer-events: none">|</p>
         <p on:click={search}>Search</p>
