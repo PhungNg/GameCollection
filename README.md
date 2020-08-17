@@ -8,4 +8,4 @@ Webapplikasjon som viser samling av spill
 - kjør 'npm install'
 - kjør 'npm run dev'
 
-or visit (http://gamecollection.surge.sh/ "Game Collection")
+or [Click here](http://gamecollection.surge.sh/)
